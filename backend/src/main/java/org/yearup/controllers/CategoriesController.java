@@ -42,6 +42,7 @@ public class CategoriesController
         Category category = cs.getById(id);
         // get the category by id
 
+        //If empty return the correct error code
         if(category == null){
             return ResponseEntity.notFound().build();
         }

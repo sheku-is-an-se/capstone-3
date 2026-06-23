@@ -31,7 +31,6 @@ public class CategoriesController
     // add the appropriate annotation for a get action
     @GetMapping
     public List<Category> getAll(){
-
         // find and return all categories
         return cs.getAllCategories();
     }
@@ -41,7 +40,6 @@ public class CategoriesController
     public ResponseEntity<Category> getById(@PathVariable int id) {
         Category category = cs.getById(id);
         // get the category by id
-
         //If empty return the correct error code
         if(category == null){
             return ResponseEntity.notFound().build();
@@ -55,7 +53,6 @@ public class CategoriesController
     public List<Product> getProductsById(@PathVariable int categoryId)
     {
         // get a list of product by categoryId
-
         return ps.listByCategoryId(categoryId);
     }
 
@@ -90,7 +87,6 @@ public class CategoriesController
     {
         // delete the category by id and return status 204 No Content
         cs.delete(id);
-
         return ResponseEntity.noContent().build();
     }
 }

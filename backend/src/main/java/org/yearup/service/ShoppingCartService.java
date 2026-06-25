@@ -65,5 +65,12 @@ public class ShoppingCartService
         return getByUserId(userId);
     }
 
+    public ShoppingCart clearCart(int userId)
+    {
+        List<CartItem> cartItems = shoppingCartRepository.findByUserId(userId);
+        shoppingCartRepository.deleteAll(cartItems);
+        return getByUserId(userId);
+    }
+
     // add additional methods here
 }

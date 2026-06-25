@@ -54,5 +54,16 @@ public class ShoppingCartService
         return getByUserId(userId);
     }
 
+    public ShoppingCart updateProduct(int userId, int productId, int quantity)
+    {
+        CartItem current = shoppingCartRepository.findByUserIdAndProductId(userId, productId);
+        if (current != null)
+        {
+            current.setQuantity(quantity);
+            shoppingCartRepository.save(current);
+        }
+        return getByUserId(userId);
+    }
+
     // add additional methods here
 }

@@ -35,6 +35,7 @@ public class CategoryService
         return categoryRepository.save(category);
     }
 
+
     public Category update(int categoryId, Category category)
     {
         // update category and return the updated category

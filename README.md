@@ -9,7 +9,12 @@ The Video Game Store is a capstone e-commerce project that simulates a real-worl
 - **Auth:** JWT (JSON Web Tokens)
 - **Frontend:** HTML, CSS, JavaScript
 
-## Getting Started
+## Core Features
+
+- Browse and filter products
+- Login and register
+- Add items to your cart
+- View and update your profile
 
 ### Prerequisites
 
@@ -27,12 +32,6 @@ spring.datasource.username=root
 spring.datasource.password=yourpassword
 ```
 
-### Running the Backend
-
-```bash
-cd backend
-mvn spring-boot:run
-```
 
 The API runs on `http://localhost:8080`.
 
@@ -74,6 +73,12 @@ Open `frontend/index.html` in a browser.
 | POST | `/cart/products/{productId}` | User |
 | PUT | `/cart/products/{productId}` | User |
 | DELETE | `/cart` | User |
+
+### Profile
+| Method | URL | Access |
+|--------|-----|--------|
+| GET | `/profile` | User |
+| PUT | `/profile` | User |
 
 ## Authentication
 

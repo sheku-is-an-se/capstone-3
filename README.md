@@ -82,3 +82,21 @@ Include the JWT token in the `Authorization` header for protected routes:
 ```
 Authorization: Bearer <your_token>
 ```
+## Favorite Code
+
+This is the `getCart` method — I like it because it shows how Spring Security passes the logged-in user straight into the method, no session needed.
+
+```java
+@GetMapping
+public ShoppingCart getCart(Principal principal)
+{
+    String userName = principal.getName();
+    User user = userService.getByUserName(userName);
+    int userId = user.getId();
+    return shoppingCartService.getByUserId(userId);
+}
+```
+
+## Learning Journey
+
+Building this project taught me how much a single missing annotation can break everything. I spent a lot of time debugging why endpoints were returning 401 instead of 403, or 404 instead of anything useful — and tracing those errors back to a missing `@PostMapping` or `@PreAuthorize` was frustrating at first, then satisfying once it clicked. Working with JWT authentication and role-based access control made me understand how real APIs actually protect their routes, not just in theory but in practice.

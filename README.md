@@ -1,6 +1,6 @@
-# EasyShop E-Commerce API
+# Video Game Store
 
-A full-stack e-commerce application with a Spring Boot REST API backend and a vanilla JavaScript frontend.
+The Video Game Store is a capstone e-commerce project that simulates a real-world online store for selling video games directly to customers. Built with a Spring Boot backend and MySQL database, the project emphasizes backend development skills such as debugging, API enhancement, feature implementation, and endpoint testing with Insomnia.
 
 ## Tech Stack
 

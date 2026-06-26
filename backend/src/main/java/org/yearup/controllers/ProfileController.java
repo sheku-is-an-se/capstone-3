@@ -15,7 +15,6 @@ import java.security.Principal;
 @CrossOrigin
 @PreAuthorize("hasRole('ROLE_USER')")
 public class ProfileController {
-
     private final ProfileService profileService;
     private final UserService userService;
 

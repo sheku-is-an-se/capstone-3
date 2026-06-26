@@ -13,8 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping({"/categories"})
 @CrossOrigin
-public class CategoriesController
-{
+public class CategoriesController {
     private CategoryService cs;
     private ProductService ps;
 
@@ -24,13 +23,11 @@ public class CategoriesController
     }
 
 
-
-
     // create an Autowired constructor to inject the categoryService and productService
 
     // add the appropriate annotation for a get action
     @GetMapping
-    public List<Category> getAll(){
+    public List<Category> getAll() {
         // find and return all categories
         return cs.getAllCategories();
     }
@@ -41,7 +38,7 @@ public class CategoriesController
         Category category = cs.getById(id);
         // get the category by id
         //If empty return the correct error code
-        if(category == null){
+        if (category == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(category);
@@ -50,8 +47,7 @@ public class CategoriesController
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("/{categoryId}/products")
-    public List<Product> getProductsById(@PathVariable int categoryId)
-    {
+    public List<Product> getProductsById(@PathVariable int categoryId) {
         // get a list of product by categoryId
         return ps.listByCategoryId(categoryId);
     }
@@ -60,8 +56,7 @@ public class CategoriesController
     @PostMapping
     // add annotation to ensure that only an ADMIN can call this function
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category)
-    {
+    public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         Category addCategory = cs.create(category);
 
         // insert the category and return it with status 201 Created
@@ -71,20 +66,17 @@ public class CategoriesController
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Category> updateCategory(@PathVariable int id, @RequestBody Category category)
-    {
+    public ResponseEntity<Category> updateCategory(@PathVariable int id, @RequestBody Category category) {
         Category updated = cs.update(id, category);
         return ResponseEntity.ok(updated);
     }
-
 
 
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> deleteCategory(@PathVariable int id)
-    {
+    public ResponseEntity<Void> deleteCategory(@PathVariable int id) {
         // delete the category by id and return status 204 No Content
         cs.delete(id);
         return ResponseEntity.noContent().build();

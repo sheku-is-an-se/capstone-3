@@ -10,24 +10,20 @@ import org.yearup.repository.ShoppingCartRepository;
 import java.util.List;
 
 @Service
-public class ShoppingCartService
-{
+public class ShoppingCartService {
     // a shopping cart is built from cart rows plus a product lookup for each row
     private final ShoppingCartRepository shoppingCartRepository;
     private final ProductService productService;
 
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, ProductService productService)
-    {
+    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, ProductService productService) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.productService = productService;
     }
 
-    public ShoppingCart getByUserId(int userId)
-    {
+    public ShoppingCart getByUserId(int userId) {
         List<CartItem> cartItems = shoppingCartRepository.findByUserId(userId);
         ShoppingCart cart = new ShoppingCart();
-        for (CartItem cartItem : cartItems)
-        {
+        for (CartItem cartItem : cartItems) {
             Product product = productService.getById(cartItem.getProductId());
             ShoppingCartItem item = new ShoppingCartItem();
             item.setProduct(product);
@@ -39,13 +35,10 @@ public class ShoppingCartService
 
     public ShoppingCart addProduct(int userId, int productId) {
         CartItem existing = shoppingCartRepository.findByUserIdAndProductId(userId, productId);
-        if (existing != null)
-        {
+        if (existing != null) {
             existing.setQuantity(existing.getQuantity() + 1);
             shoppingCartRepository.save(existing);
-        }
-        else
-        {
+        } else {
             CartItem newItem = new CartItem();
             newItem.setUserId(userId);
             newItem.setProductId(productId);
@@ -54,19 +47,16 @@ public class ShoppingCartService
         return getByUserId(userId);
     }
 
-    public ShoppingCart updateProduct(int userId, int productId, int quantity)
-    {
+    public ShoppingCart updateProduct(int userId, int productId, int quantity) {
         CartItem current = shoppingCartRepository.findByUserIdAndProductId(userId, productId);
-        if (current != null)
-        {
+        if (current != null) {
             current.setQuantity(quantity);
             shoppingCartRepository.save(current);
         }
         return getByUserId(userId);
     }
 
-    public ShoppingCart clearCart(int userId)
-    {
+    public ShoppingCart clearCart(int userId) {
         List<CartItem> cartItems = shoppingCartRepository.findByUserId(userId);
         shoppingCartRepository.deleteAll(cartItems);
         return getByUserId(userId);

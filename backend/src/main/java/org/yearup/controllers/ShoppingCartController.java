@@ -12,8 +12,6 @@ import org.yearup.service.UserService;
 
 import java.security.Principal;
 
-// convert this class to a REST controller
-// only logged in users should have access to these actions
 @RestController
 @RequestMapping("/cart")
 @CrossOrigin
@@ -28,7 +26,7 @@ public class ShoppingCartController {
         this.userService = userService;
     }
 
-    // each method in this controller requires a Principal object as a parameter
+    // Returns the shopping cart for the logged in user
     @GetMapping
     public ShoppingCart getCart(Principal principal) {
         // get the currently logged in username
@@ -41,6 +39,7 @@ public class ShoppingCartController {
         return shoppingCartService.getByUserId(userId);
     }
 
+    // Adds a product to the cart, creates a new cart item or increases quantity
     @PostMapping("/products/{productId}")
     public ResponseEntity<ShoppingCart> addToCart(Principal principal, @PathVariable int productId) {
         String userName = principal.getName();
@@ -50,15 +49,7 @@ public class ShoppingCartController {
         return ResponseEntity.status(201).body(cart);
     }
 
-
-    // add a POST method to add a product to the cart - the url should be
-    // https://localhost:8080/cart/products/15  (15 is the productId to be added)
-    // return the updated cart with status 201 Created
-
-
-    // add a PUT method to update an existing product in the cart - the url should be
-    // https://localhost:8080/cart/products/15  (15 is the productId to be updated)
-    // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated; return the cart (200 OK)
+    // Updates the quantity of a product in the cart
     @PutMapping("/products/{productId}")
     public ShoppingCart updateCart(Principal principal, @PathVariable int productId, @RequestBody ShoppingCartItem item) {
         String userName = principal.getName();
@@ -68,8 +59,7 @@ public class ShoppingCartController {
         return cart;
     }
 
-    // add a DELETE method to clear all products from the current users cart
-    // https://localhost:8080/cart  - return the (now empty) cart so the front end can refresh it (200 OK)
+    // Clears all items from the cart
     @DeleteMapping
     public ShoppingCart clearCart(Principal principal) {
         String userName = principal.getName();
